@@ -9,5 +9,5 @@ result = client.service.ConvertSpeed_Get(100, 'kilometersPerhour', 'milesPerhour
 print result
 
 
-service2 = client.bind('ConvertSpeeds', 'ConvertSpeedsHttpGet')
+service2 = client.bind('ConvertSpeeds', 'ConvertS   ``peedsHttpGet')
 print service2.ConvertSpeed_Get(100, 'kilometersPerhour', 'milesPerhour')
