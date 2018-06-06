@@ -1,9 +1,12 @@
-from zeep import Client
+import dictionary
 
-def execute_Single_Operation(WSDLFile, OperationName, InputObjectData, OutputObjectTemplate, ServiceObject_Composition):
+EX_SERVICE_DIC_ONTO_WSDL = dictionary.SERVICE_DIC_ONTO_WSDL
+
+def execute_Single_Operation(OperationName, InputParams, OutputParams):
     try:
-        client = Client(WSDLFile)
-        result = client.service.ConvertSpeed_Get(100, 'kilometersPerhour', 'milesPerhour')
+        result = EX_SERVICE_DIC_ONTO_WSDL['phylotastic_GetPhylogeneticTree_OT_GET']['execution.call'](InputParams)
+        #print result
         return result
-    except:
+    except Exception as inst:
+        print(inst)
         return None

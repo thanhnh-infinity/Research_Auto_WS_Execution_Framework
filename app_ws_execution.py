@@ -1,21 +1,9 @@
 import ws_execution_engine
-from zeep import Client
 from pprint import pprint
+import dictionary
 
-#print ws_execution_engine.execute_Single_Operation("./convert.wsdl","",[],[],{})
-OpenTree_Client = Client("./convert.wsdl")
-FUNCTION_LIST = {
-  'OpenTree_GetTree' : OpenTree_Client.service.ConvertSpeed_Get
-}
-result = FUNCTION_LIST['OpenTree_GetTree'](100, 'kilometersPerhour', 'milesPerhour')
-print result
+EX_SERVICE_DIC_ONTO_WSDL = dictionary.SERVICE_DIC_ONTO_WSDL
 
-
-client = Client("./convert.wsdl")
-result = client.service.ConvertSpeed_Get(100, 'kilometersPerhour', 'milesPerhour')
-print result
-
-
-service2 = client.bind('ConvertSpeeds', 'ConvertSpeedsHttpGet')
-
-print service2.ConvertSpeed_Get(100, 'kilometersPerhour', 'milesPerhour')
+inputParams = []
+inputParams.append("Crabronidae|Ophiocordyceps|Megalyridae|Formica%20polyctena|Tetramorium caespitum|Pseudomyrmex|Carebara diversa|Formicinae")
+print(ws_execution_engine.execute_Single_Operation("phylotastic_GetPhylogeneticTree_OT_GET",inputParams,None))

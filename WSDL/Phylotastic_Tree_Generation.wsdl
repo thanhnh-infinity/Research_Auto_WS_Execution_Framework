@@ -1,0 +1,142 @@
+<wsdl:definitions xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://phylo.cs.nmsu.edu:5004/phylotastic_ws" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://phylo.cs.nmsu.edu:5004/phylotastic_ws">
+    <!-- TYPES -->
+    <wsdl:types>
+        <s:schema elementFormDefault="qualified" targetNamespace="http://phylo.cs.nmsu.edu:5004/phylotastic_ws">
+            <!-- Request data structure -->
+            <s:element name="GetPhylo_OT_GET_Request">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="1" maxOccurs="1" name="taxa" type="s:string"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+
+            <!-- Response data structure -->
+            <s:element name="GetPhylo_OT_GET_Response">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="1" maxOccurs="1" name="status_code" type="s:integer"/>
+                        <s:element minOccurs="1" maxOccurs="1" name="message" type="s:string"/>
+                        <s:element minOccurs="1" maxOccurs="1" name="newick" type="s:string"/>
+                        <s:element minOccurs="1" maxOccurs="1" name="meta_data" type="tns:res_meta_data"/>
+                        <s:element minOccurs="1" maxOccurs="1" name="status_code" type="tns:res_tree_metadata"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            
+            <!-- Data Structure for complex object in Response -->
+            <s:complexType name="res_meta_data">
+                <s:sequence>
+                    <s:element name="execution_time" type="s:double"/>
+                    <s:element name="creation_time" type="s:string"/>
+                    <s:element name="source_urls" type="s:string"/>
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="res_tree_metadata">
+                <s:sequence>
+                    <s:element name="alignment_method" type="s:string"/>
+                    <s:element name="character_matrix" type="s:string"/>
+                    <s:element name="rooted" type="s:boolean"/>
+                    <s:element name="anastomosing" type="s:boolean"/>
+                    <s:element name="branch_lengths_type" type="s:string"/>
+                    <s:element name="consensus_type" type="s:string"/>
+                    <s:element name="inference_method" type="s:string"/>
+                    <s:element name="branch_support_type" type="s:string"/>
+                    <s:element name="num_tips" type="s:integer"/>
+                    <s:element name="gene_or_species" type="tns:cat_gene_species"/>
+                    <s:element name="topology_id" type="s:string"/>
+                    <s:element name="synthetic_tree_id" type="s:string"/>
+                </s:sequence>
+            </s:complexType>
+
+            <s:simpleType name="cat_gene_species">
+                <s:restriction base="s:string">
+                    <s:enumeration value="gene"/>
+                    <s:enumeration value="species"/>
+                </s:restriction>
+            </s:simpleType>
+
+            <s:element name="double" type="s:double"/>
+        </s:schema>
+    </wsdl:types>
+    
+    <!-- MESSAGE -->
+    <wsdl:message name="phylotastic_GetPhylogeneticTree_OT_GET_HttpGetIn">
+       <wsdl:part name="taxa" type="s:string"/>
+    </wsdl:message>
+    <wsdl:message name="phylotastic_GetPhylogeneticTree_OT_GET_HttpGetOut">
+        <wsdl:part name="status_code" type="s:string"/>
+        <wsdl:part name="message" type="s:string"/>
+        <wsdl:part name="newick" type="s:string"/>
+        <wsdl:part name="meta_data" type="tns:res_meta_data"/>
+        <wsdl:part name="status_code" type="tns:res_tree_metadata"/>
+    </wsdl:message>
+
+    <!--
+    <wsdl:message name="ConvertSpeedHttpPostIn">
+        <wsdl:part name="speed" type="s:string"/>
+        <wsdl:part name="FromUnit" type="s:string"/>
+        <wsdl:part name="ToUnit" type="s:string"/>
+    </wsdl:message>
+
+    <wsdl:message name="ConvertSpeedHttpPostOut">
+        <wsdl:part name="Body" element="tns:double"/>
+    </wsdl:message>
+    -->
+
+    <!-- PORT TYPE -->
+    <wsdl:portType name="phylotastic_GetPhylogeneticTree_OT_GET_HttpGet">
+        <wsdl:operation name="phylotastic_GetPhylogeneticTree_OT_GET">
+            <wsdl:input message="tns:phylotastic_GetPhylogeneticTree_OT_GET_HttpGetIn"/>
+            <wsdl:output message="tns:phylotastic_GetPhylogeneticTree_OT_GET_HttpGetOut"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <!--
+    <wsdl:portType name="ConvertSpeedsHttpPost">
+        <wsdl:operation name="ConvertSpeed_Post">
+            <wsdl:input message="tns:ConvertSpeedHttpPostIn"/>
+            <wsdl:output message="tns:ConvertSpeedHttpPostOut"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    -->
+    <!-- BINDING -->
+    <wsdl:binding name="phylotastic_GetPhylogeneticTree_OT_GET_HttpGet" type="tns:phylotastic_GetPhylogeneticTree_OT_GET_HttpGet">
+        <http:binding verb="GET"/>
+        <wsdl:operation name="phylotastic_GetPhylogeneticTree_OT_GET">
+            <http:operation location="/gt/ot/get_tree"/>
+            <wsdl:input>
+                <http:urlEncoded/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="application/json"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+
+    <!--
+    <wsdl:binding name="ConvertSpeedsHttpPost" type="tns:ConvertSpeedsHttpPost">
+        <http:binding verb="POST"/>
+        <wsdl:operation name="ConvertSpeed_Post">
+            <http:operation location="/ConvertSpeed"/>
+            <wsdl:input>
+                <mime:content type="application/x-www-form-urlencoded"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:mimeXml part="Body"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    -->
+
+    <!-- SERVICE -->
+    <wsdl:service name="phylotastic_GetPhylogeneticTree">
+        <wsdl:port name="phylotastic_GetPhylogeneticTree_OT_GET_HttpGet" binding="tns:phylotastic_GetPhylogeneticTree_OT_GET_HttpGet">
+            <http:address location="http://phylo.cs.nmsu.edu:5004/phylotastic_ws"/>
+        </wsdl:port>
+        <!--
+        <wsdl:port name="ConvertSpeedsHttpPost" binding="tns:ConvertSpeedsHttpPost">
+            <http:address location="http://www.webservicex.net/ConvertSpeed.asmx"/>
+        </wsdl:port>
+        -->
+    </wsdl:service>
+</wsdl:definitions>
