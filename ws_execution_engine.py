@@ -3,7 +3,7 @@ import json
 
 EX_SERVICE_DIC_ONTO_WSDL = dictionary.SERVICE_DIC_ONTO_WSDL
 
-def execute_Single_Operation(OperationName, InputParams, OutputParams):
+def execute_single_operation(OperationName, InputParams, OutputParams):
     try:
         result = EX_SERVICE_DIC_ONTO_WSDL[OperationName]['execution.call'](InputParams)
         
@@ -17,3 +17,6 @@ def execute_Single_Operation(OperationName, InputParams, OutputParams):
     except Exception as inst:
         print(inst)
         return None
+
+def  execution_a_workflow():
+    return Nine

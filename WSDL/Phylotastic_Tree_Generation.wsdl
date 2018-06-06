@@ -91,6 +91,12 @@
             <wsdl:output message="tns:phylotastic_GetPhylogeneticTree_OT_GET_HttpGetOut"/>
         </wsdl:operation>
     </wsdl:portType>
+    <wsdl:portType name="phylotastic_GetPhylogeneticTree_OT_GET_HttpPost_V1">
+        <wsdl:operation name="phylotastic_GetPhylogeneticTree_OT_POST">
+            <wsdl:input message="tns:phylotastic_GetPhylogeneticTree_OT_GET_HttpGetIn"/>
+            <wsdl:output message="tns:phylotastic_GetPhylogeneticTree_OT_GET_HttpGetOut"/>
+        </wsdl:operation>
+    </wsdl:portType>
     <!--
     <wsdl:portType name="ConvertSpeedsHttpPost">
         <wsdl:operation name="ConvertSpeed_Post">
@@ -103,6 +109,19 @@
     <wsdl:binding name="phylotastic_GetPhylogeneticTree_OT_GET_HttpGet" type="tns:phylotastic_GetPhylogeneticTree_OT_GET_HttpGet">
         <http:binding verb="GET"/>
         <wsdl:operation name="phylotastic_GetPhylogeneticTree_OT_GET">
+            <http:operation location="/gt/ot/get_tree"/>
+            <wsdl:input>
+                <http:urlEncoded/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="application/json"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+
+    <wsdl:binding name="phylotastic_GetPhylogeneticTree_OT_GET_HttpPost_V1" type="tns:phylotastic_GetPhylogeneticTree_OT_GET_HttpPost_V1">
+        <http:binding verb="POST"/>
+        <wsdl:operation name="phylotastic_GetPhylogeneticTree_OT_POST">
             <http:operation location="/gt/ot/get_tree"/>
             <wsdl:input>
                 <http:urlEncoded/>
@@ -131,6 +150,9 @@
     <!-- SERVICE -->
     <wsdl:service name="phylotastic_GetPhylogeneticTree">
         <wsdl:port name="phylotastic_GetPhylogeneticTree_OT_GET_HttpGet" binding="tns:phylotastic_GetPhylogeneticTree_OT_GET_HttpGet">
+            <http:address location="http://phylo.cs.nmsu.edu:5004/phylotastic_ws"/>
+        </wsdl:port>
+        <wsdl:port name="phylotastic_GetPhylogeneticTree_OT_GET_HttpPost_V1" binding="tns:phylotastic_GetPhylogeneticTree_OT_GET_HttpPost_V1">
             <http:address location="http://phylo.cs.nmsu.edu:5004/phylotastic_ws"/>
         </wsdl:port>
         <!--
