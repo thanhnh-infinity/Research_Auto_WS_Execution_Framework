@@ -9,6 +9,7 @@ test_service2 = Test_Client.bind("ConvertSpeeds","ConvertSpeedsHttpPost")
 test_service1 = Test_Client.bind("ConvertSpeeds","ConvertSpeedsHttpGet")
 TreeGeneration_Operation_OT_GET = TreeGeneration_Client.bind("phylotastic_GetPhylogeneticTree","phylotastic_GetPhylogeneticTree_OT_GET_HttpGet")
 TreeGeneration_Operation_OT_POST_V1 = TreeGeneration_Client.bind("phylotastic_GetPhylogeneticTree","phylotastic_GetPhylogeneticTree_OT_GET_HttpPost_V1")
+
 # Mapping part
 SERVICE_DIC_ONTO_WSDL = {
     'phylotastic_GetPhylogeneticTree_OT_GET' : {
