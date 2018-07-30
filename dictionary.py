@@ -1,16 +1,16 @@
 from zeep import Client
 
-# Registration part
+# 1. Registration part
 TreeGeneration_Client = Client("./WSDL/Phylotastic_Tree_Generation.wsdl")
 Test_Client = Client("./WSDL/try.wsdl")
 
-# Binding part
+# 2. Binding part
 test_service2 = Test_Client.bind("ConvertSpeeds","ConvertSpeedsHttpPost")
 test_service1 = Test_Client.bind("ConvertSpeeds","ConvertSpeedsHttpGet")
 TreeGeneration_Operation_OT_GET = TreeGeneration_Client.bind("phylotastic_GetPhylogeneticTree","phylotastic_GetPhylogeneticTree_OT_GET_HttpGet")
 TreeGeneration_Operation_OT_POST_V1 = TreeGeneration_Client.bind("phylotastic_GetPhylogeneticTree","phylotastic_GetPhylogeneticTree_OT_GET_HttpPost_V1")
 
-# Mapping part
+# 3. Mapping part
 SERVICE_DIC_ONTO_WSDL = {
     'phylotastic_GetPhylogeneticTree_OT_GET' : {
         'execution.call' : TreeGeneration_Operation_OT_GET['phylotastic_GetPhylogeneticTree_OT_GET'],
@@ -72,6 +72,6 @@ SERVICE_DIC_ONTO_WSDL = {
     },
 }
 
-# Remembering data
+# 4. Remembering data
 WORKFLOW_WITH_DATA = []
 
