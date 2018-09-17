@@ -11,6 +11,7 @@ def execute_single_operation(OperationName, InputParams, OutputParams):
         print(json_data[what_want_to_get])
         return json_data
     except Exception as inst:
+        print("Error : ")
         print(inst)
         return None
 
