@@ -2,12 +2,12 @@ from zeep import Client
 
 try:
     # 1. Registration part
-    #TreeGeneration_Client = Client("./WSDL/Phylotastic_Tree_Generation.wsdl")
-    #Test_Client = Client("./WSDL/try.wsdl")
+    TreeGeneration_Client = Client("./WSDL/Phylotastic_Tree_Generation.wsdl")
+    Test_Client = Client("./WSDL/try.wsdl")
 
     # 1. FOR UBUNTU : Registration part
-    TreeGeneration_Client = Client("/opt/app/execution/WSDL/Phylotastic_Tree_Generation.wsdl")
-    Test_Client = Client("/opt/app/execution/WSDL/try.wsdl")
+    #TreeGeneration_Client = Client("/opt/app/execution/WSDL/Phylotastic_Tree_Generation.wsdl")
+    #Test_Client = Client("/opt/app/execution/WSDL/try.wsdl")
 
     # 2. Binding part
     test_service2 = Test_Client.bind("ConvertSpeeds","ConvertSpeedsHttpPost")
