@@ -5,7 +5,7 @@ from zeep import Client
 #Test_Client = Client("./WSDL/try.wsdl")
 
 # 1. FOR UBUNTU : Registration part
-TreeGeneration_Client = Client("/opt/app/execution/WSDLPhylotastic_Tree_Generation.wsdl")
+TreeGeneration_Client = Client("/opt/app/execution/WSDL/Phylotastic_Tree_Generation.wsdl")
 Test_Client = Client("/opt/app/execution/WSDL/try.wsdl")
 
 # 2. Binding part
