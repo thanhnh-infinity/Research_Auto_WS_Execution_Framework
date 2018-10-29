@@ -4,6 +4,7 @@ try:
     # 1. Registration part
     TreeGeneration_Client = Client("./WSDL/Phylotastic_Tree_Generation.wsdl")
     Test_Client = Client("./WSDL/try.wsdl")
+    NameExtraction_Client = Client("./WSDL/Phylotastic_Name_Extraction.wsdl")
 
     # 1. FOR UBUNTU : Registration part
     #TreeGeneration_Client = Client("/opt/app/execution/WSDL/Phylotastic_Tree_Generation.wsdl")
@@ -14,6 +15,9 @@ try:
     test_service1 = Test_Client.bind("ConvertSpeeds","ConvertSpeedsHttpGet")
     TreeGeneration_Operation_OT_GET = TreeGeneration_Client.bind("phylotastic_GetPhylogeneticTree","phylotastic_GetPhylogeneticTree_OT_GET_HttpGet")
     TreeGeneration_Operation_OT_POST_V1 = TreeGeneration_Client.bind("phylotastic_GetPhylogeneticTree","phylotastic_GetPhylogeneticTree_OT_GET_HttpPost_V1")
+
+    Name_Extraction_Operation_GNRD_GET = NameExtraction_Client.bind("phylotastic_GetScientificNames_GNRD","phylotastic_GetScientificNames_GNRD_GET_HttpGet")
+    
 
     # 3. Mapping part
     SERVICE_DIC_ONTO_WSDL = {
@@ -35,6 +39,16 @@ try:
             'outputs' : {
                 'resouce_HTTPCode' : 'status_code',
                 'resource_speciesTree' : 'newick'
+            }
+        },
+        'phylotastic_GetScientificNames_GNRD_GET' : {
+            'execution.call' : Name_Extraction_Operation_GNRD_GET['phylotastic_GetScientificNames_GNRD_GET'],
+            'inputs' : {
+                'resource_WebURL' : 'url'
+            },
+            'outputs' : {
+                'resouce_HTTPCode' : 'status_code',
+                'resource_SetOfScientificNames' : 'scientificNames'
             }
         },
         'ConvertSpeend_Get' : {

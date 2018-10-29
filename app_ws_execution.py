@@ -9,3 +9,6 @@ inputParams.append("Crabronidae|Ophiocordyceps|Megalyridae|Formica%20polyctena|T
 expectedOutput = ['resource_speciesTree']
 json_result = ws_execution_engine.execute_single_operation("phylotastic_GetPhylogeneticTree_OT_GET",inputParams,expectedOutput)
 
+#inputParam = "http://en.wikipedia.org/wiki/Mustelidae"
+#ws_execution_engine.execute_name_extraction_operation("phylotastic_GetScientificNames_GNRD_GET", inputParam, None)
+
