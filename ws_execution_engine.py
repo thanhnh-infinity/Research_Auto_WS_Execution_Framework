@@ -1,7 +1,11 @@
 import dictionary
 import json
 
-EX_SERVICE_DIC_ONTO_WSDL = dictionary.SERVICE_DIC_ONTO_WSDL
+try:
+    EX_SERVICE_DIC_ONTO_WSDL = dictionary.SERVICE_DIC_ONTO_WSDL
+except Exception as inst:
+    print("out")
+    print(inst)
 
 def execute_single_operation(OperationName, InputParams, OutputParams):
     try:
@@ -13,6 +17,7 @@ def execute_single_operation(OperationName, InputParams, OutputParams):
         print(json_data[what_want_to_get])
         return json_data
     except Exception as inst:
+        print("Error : ")
         print(inst)
         return None
 
