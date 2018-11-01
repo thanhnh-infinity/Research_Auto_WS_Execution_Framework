@@ -20,7 +20,7 @@
                         <s:element minOccurs="1" maxOccurs="1" name="message" type="s:string"/>
                         <s:element minOccurs="1" maxOccurs="1" name="newick" type="s:string"/>
                         <s:element minOccurs="1" maxOccurs="1" name="meta_data" type="tns:res_meta_data"/>
-                        <s:element minOccurs="1" maxOccurs="1" name="status_code" type="tns:res_tree_metadata"/>
+                        <s:element minOccurs="1" maxOccurs="1" name="tree_metadata" type="tns:res_tree_metadata"/>
                     </s:sequence>
                 </s:complexType>
             </s:element>

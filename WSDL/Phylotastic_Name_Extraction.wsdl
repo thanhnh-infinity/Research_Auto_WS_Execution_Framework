@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <wsdl:definitions xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://phylo.cs.nmsu.edu:5004/phylotastic_ws" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://phylo.cs.nmsu.edu:5004/phylotastic_ws">
     <!-- TYPES -->
     <wsdl:types>
@@ -21,7 +22,7 @@
                         <s:element minOccurs="1" maxOccurs="1" name="input_url" type="s:string"/>
                         <s:element minOccurs="1" maxOccurs="1" name="meta_data" type="tns:res_meta_data"/>
                         <s:element minOccurs="1" maxOccurs="1" name="gnrd_parameters" type="tns:res_gnrd_param"/>
-                        <s:element minOccurs="1" maxOccurs="1" name="scientificNames" type="s:valuelist"/>
+                        <s:element minOccurs="1" maxOccurs="1" name="scientificNames" type="tns:valuelist"/>
                     </s:sequence>
                 </s:complexType>
             </s:element>
@@ -39,9 +40,9 @@
                 <s:sequence>
                     <s:element name="engine" type="s:integer"/>
                     <s:element name="best_match_only" type="s:boolean"/>
-					<s:element name="data_source_ids" type="s:intlist"/>                    
+					<s:element name="data_source_ids" type="tns:intlist"/>
 					<s:element name="detect_language" type="s:boolean"/>
-					<s:element name="preferred_data_sources" type="s:intlist"/>
+					<s:element name="preferred_data_sources" type="tns:intlist"/>
 					<s:element name="all_data_sources" type="s:boolean"/>
 					<s:element name="return_content" type="s:boolean"/>					
                 </s:sequence>
@@ -62,7 +63,7 @@
     
     <!-- MESSAGE -->
     <wsdl:message name="phylotastic_GetScientificNames_GNRD_GET_HttpGetIn">
-       <wsdl:part name="taxa" type="s:string"/>
+       <wsdl:part name="url" type="s:string"/>
     </wsdl:message>
     <wsdl:message name="phylotastic_GetScientificNames_GNRD_GET_HttpGetOut">
         <wsdl:part name="status_code" type="s:string"/>
@@ -70,7 +71,7 @@
         <wsdl:part name="input_url" type="s:string"/>
         <wsdl:part name="meta_data" type="tns:res_meta_data"/>
         <wsdl:part name="gnrd_parameters" type="tns:res_gnrd_param"/>
-		<wsdl:part name="scientificNames" type="s:valuelist"/>
+		<wsdl:part name="scientificNames" type="tns:valuelist"/>
 		<wsdl:part name="total_names" type="s:integer"/>
     </wsdl:message>
 
