@@ -15,7 +15,6 @@ try:
     test_service1 = Test_Client.bind("ConvertSpeeds","ConvertSpeedsHttpGet")
     TreeGeneration_Operation_OT_GET = TreeGeneration_Client.bind("phylotastic_GetPhylogeneticTree","phylotastic_GetPhylogeneticTree_OT_GET_HttpGet")
     TreeGeneration_Operation_OT_POST_V1 = TreeGeneration_Client.bind("phylotastic_GetPhylogeneticTree","phylotastic_GetPhylogeneticTree_OT_GET_HttpPost_V1")
-
     Name_Extraction_Operation_GNRD_GET = NameExtraction_Client.bind("phylotastic_GetScientificNames_GNRD","phylotastic_GetScientificNames_GNRD_GET_HttpGet")
     
 

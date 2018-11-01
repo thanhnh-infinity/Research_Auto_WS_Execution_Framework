@@ -5,7 +5,6 @@ import dictionary
 EX_SERVICE_DIC_ONTO_WSDL = dictionary.SERVICE_DIC_ONTO_WSDL
 
 # Running GET phylomatic tree
-
 inputParams = []
 inputParams.append("Crabronidae|Ophiocordyceps|Megalyridae|Formica%20polyctena|Tetramorium caespitum|Pseudomyrmex|Carebara diversa|Formicinae")
 expectedOutput = ['resource_speciesTree']
