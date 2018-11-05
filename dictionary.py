@@ -4,7 +4,8 @@ try:
     # 1. Registration part
     TreeGeneration_Client = Client("./WSDL/Phylotastic_Tree_Generation.wsdl")
     Test_Client = Client("./WSDL/try.wsdl")
-    NameExtraction_Client = Client("./WSDL/Phylotastic_Name_Extraction.wsdl")
+    NameExtraction_URL_Client = Client("./WSDL/Phylotastic_Name_Extraction_URL.wsdl")
+    NameExtraction_TEXT_Client = Client("./WSDL/Phylotastic_Name_Extraction_TEXT.wsdl")
 
     # 1. FOR UBUNTU : Registration part
     #TreeGeneration_Client = Client("/opt/app/execution/WSDL/Phylotastic_Tree_Generation.wsdl")
@@ -15,8 +16,9 @@ try:
     test_service1 = Test_Client.bind("ConvertSpeeds","ConvertSpeedsHttpGet")
     TreeGeneration_Operation_OT_GET = TreeGeneration_Client.bind("phylotastic_GetPhylogeneticTree","phylotastic_GetPhylogeneticTree_OT_GET_HttpGet")
     TreeGeneration_Operation_OT_POST_V1 = TreeGeneration_Client.bind("phylotastic_GetPhylogeneticTree","phylotastic_GetPhylogeneticTree_OT_GET_HttpPost_V1")
-    Name_Extraction_Operation_GNRD_GET = NameExtraction_Client.bind("phylotastic_GetScientificNames_GNRD","phylotastic_GetScientificNames_GNRD_GET_HttpGet")
-    
+    Name_Extraction_Operation_GNRD_URL_GET = NameExtraction_URL_Client.bind("phylotastic_GetScientificNames_GNRD","phylotastic_GetScientificNames_GNRD_GET_HttpGet")
+    Name_Extraction_Operation_GNRD_TEXT_POST = NameExtraction_TEXT_Client.bind("phylotastic_GetScientificNamesText_GNRD","phylotastic_GetScientificNamesText_GNRD_HttpPOST")
+	
 
     # 3. Mapping part
     SERVICE_DIC_ONTO_WSDL = {
@@ -41,9 +43,19 @@ try:
             }
         },
         'phylotastic_GetScientificNames_GNRD_GET' : {
-            'execution.call' : Name_Extraction_Operation_GNRD_GET['phylotastic_GetScientificNames_GNRD_GET'],
+            'execution.call' : Name_Extraction_Operation_GNRD_URL_GET['phylotastic_GetScientificNames_GNRD_GET'],
             'inputs' : {
                 'resource_WebURL' : 'url'
+            },
+            'outputs' : {
+                'resouce_HTTPCode' : 'status_code',
+                'resource_SetOfScientificNames' : 'scientificNames'
+            }
+        },
+        'phylotastic_GetScientificNamesText_GNRD_POST' : {
+            'execution.call' : Name_Extraction_Operation_GNRD_TEXT_POST['phylotastic_GetScientificNamesText_GNRD_POST'],
+            'inputs' : {
+                'resource_FreeText' : 'text'
             },
             'outputs' : {
                 'resouce_HTTPCode' : 'status_code',
