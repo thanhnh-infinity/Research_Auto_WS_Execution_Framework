@@ -42,6 +42,7 @@ try:
                 'resource_speciesTree' : 'newick'
             }
         },
+
         'phylotastic_GetScientificNames_GNRD_GET' : {
             'execution.call' : Name_Extraction_Operation_GNRD_URL_GET['phylotastic_GetScientificNames_GNRD_GET'],
             'inputs' : {
