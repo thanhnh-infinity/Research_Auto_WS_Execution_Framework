@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://phylo.cs.nmsu.edu:5004/phylotastic_ws" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://phylo.cs.nmsu.edu:5004/phylotastic_ws">
+    <!-- TYPES -->
+    <wsdl:types>
+        <s:schema elementFormDefault="qualified" targetNamespace="http://phylo.cs.nmsu.edu:5004/phylotastic_ws">
+            <!-- Request data structure -->
+            <s:element name="ResolveNames_OToL_GET_Request">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="1" maxOccurs="1" name="names" type="s:string"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+
+            <!-- Response data structure -->
+            <s:element name="ResolveNames_OToL_GET_Response">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="1" maxOccurs="1" name="status_code" type="s:integer"/>
+                        <s:element minOccurs="1" maxOccurs="1" name="total_names" type="s:integer"/>
+                        <s:element minOccurs="1" maxOccurs="1" name="message" type="s:string"/>
+                        <s:element minOccurs="1" maxOccurs="1" name="meta_data" type="tns:res_meta_data"/>
+                        <s:element minOccurs="1" maxOccurs="unbounded" name="resolvedNames" type="tns:resolvedlist"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            
+			<!-- Data Structure for simple object in Response -->
+			<s:simpleType name="tns:resolvedlist">
+                <s:list itemType="tns:resolvedresult"/>
+            </s:simpleType>
+
+			<s:simpleType name="tns:matchlist">
+                <s:list itemType="tns:matchedresult"/>
+            </s:simpleType>
+
+			<s:simpleType name="tns:valuelist">
+                <s:list itemType="s:string"/>
+            </s:simpleType>
+            
+            <!--<s:element name="double" type="s:double"/> -->
+
+
+            <!-- Data Structure for complex object in Response -->
+			<s:complexType name="res_meta_data">
+                <s:sequence>
+                    <s:element name="execution_time" type="s:double"/>
+                    <s:element name="creation_time" type="s:string"/>
+                    <s:element name="source_urls" type="tns:valuelist"/>
+                </s:sequence>
+            </s:complexType>
+
+            <s:complexType name="tns:resolvedresult">
+                <s:sequence>
+                    <s:element name="matched_results" type="tns:matchlist"/>
+                    <s:element name="input_name" type="s:string"/>
+                </s:sequence>
+            </s:complexType>
+
+            <s:complexType name="tns:matchedresult">
+                <s:sequence>
+                    <s:element name="data_source" type="s:string"/>
+                    <s:element name="match_type" type="s:string"/>
+					<s:element name="match_score" type="s:double"/>
+					<s:element name="matched_name" type="s:string"/>
+					<s:element name="search_string" type="s:string"/>
+					<s:element name="synonyms" type="tns:valuelist"/>
+					<s:element name="taxon_id" type="s:integer"/>					
+                </s:sequence>
+            </s:complexType>
+
+        </s:schema>
+    </wsdl:types>
+    
+    <!-- MESSAGE -->
+    <wsdl:message name="phylotastic_ResolveNames_OToL_GET_HttpGetIn">
+       <wsdl:part name="names" type="s:string"/>
+    </wsdl:message>
+    <wsdl:message name="phylotastic_ResolveNames_OToL_GET_HttpGetOut">
+        <wsdl:part name="status_code" type="s:integer"/>
+        <wsdl:part name="message" type="s:string"/>
+        <wsdl:part name="meta_data" type="tns:res_meta_data"/>
+ 		<wsdl:part name="resolvedNames" type="tns:resolvedlist"/>
+        <wsdl:part name="total_names" type="s:integer"/>
+    </wsdl:message>
+
+    
+    <!-- PORT TYPE -->
+    <wsdl:portType name="phylotastic_ResolveNames_OToL_GET_HttpGet">
+        <wsdl:operation name="phylotastic_ResolveNames_OToL_GET">
+            <wsdl:input message="tns:phylotastic_ResolveNames_OToL_GET_HttpGetIn"/>
+            <wsdl:output message="tns:phylotastic_ResolveNames_OToL_GET_HttpGetOut"/>
+        </wsdl:operation>
+    </wsdl:portType>
+
+	
+	<!-- BINDING -->
+    <wsdl:binding name="phylotastic_ResolveNames_OToL_GET_HttpGet" type="tns:phylotastic_ResolveNames_OToL_GET_HttpGet">
+        <http:binding verb="GET"/>
+        <wsdl:operation name="phylotastic_ResolveNames_OToL_GET">
+            <http:operation location="/tnrs/ot/resolve"/>
+            <wsdl:input>
+                <http:urlEncoded/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="application/json"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+
+	
+    <!-- SERVICE -->
+    <wsdl:service name="phylotastic_ResolveNames_OToL">
+        <wsdl:port name="phylotastic_ResolveNames_OToL_GET_HttpGet" binding="tns:phylotastic_ResolveNames_OToL_GET_HttpGet">
+            <http:address location="http://phylo.cs.nmsu.edu:5004/phylotastic_ws"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
