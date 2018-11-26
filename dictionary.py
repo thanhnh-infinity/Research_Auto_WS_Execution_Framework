@@ -6,6 +6,7 @@ try:
     Test_Client = Client("./WSDL/try.wsdl")
     NameExtraction_URL_Client = Client("./WSDL/Phylotastic_Name_Extraction_URL.wsdl")
     NameExtraction_TEXT_Client = Client("./WSDL/Phylotastic_Name_Extraction_TEXT.wsdl")
+    NameResolution_Client = Client("./WSDL/Phylotastic_Name_Resolution_OToL.wsdl")
 
     # 1. FOR UBUNTU : Registration part
     #TreeGeneration_Client = Client("/opt/app/execution/WSDL/Phylotastic_Tree_Generation.wsdl")
@@ -18,7 +19,8 @@ try:
     TreeGeneration_Operation_OT_POST_V1 = TreeGeneration_Client.bind("phylotastic_GetPhylogeneticTree","phylotastic_GetPhylogeneticTree_OT_GET_HttpPost_V1")
     Name_Extraction_Operation_GNRD_URL_GET = NameExtraction_URL_Client.bind("phylotastic_GetScientificNames_GNRD","phylotastic_GetScientificNames_GNRD_GET_HttpGet")
     Name_Extraction_Operation_GNRD_TEXT_POST = NameExtraction_TEXT_Client.bind("phylotastic_GetScientificNamesText_GNRD","phylotastic_GetScientificNamesText_GNRD_HttpPOST")
-	
+    Name_Resolution_Operation_OToL_GET = NameResolution_Client.bind("phylotastic_ResolveNames_OToL","phylotastic_ResolveNames_OToL_GET_HttpGet")
+		
 
     # 3. Mapping part
     SERVICE_DIC_ONTO_WSDL = {
@@ -61,6 +63,16 @@ try:
             'outputs' : {
                 'resouce_HTTPCode' : 'status_code',
                 'resource_SetOfScientificNames' : 'scientificNames'
+            }
+        },
+        'phylotastic_ResolveNames_OToL_GET' : {
+            'execution.call' : Name_Resolution_Operation_OToL_GET['phylotastic_ResolveNames_OToL_GET'],
+            'inputs' : {
+                'resource_SetOfTaxon' : 'names'
+            },
+            'outputs' : {
+                'resouce_HTTPCode' : 'status_code',
+                'resource_SetOfResolvedName' : 'resolvedNames'
             }
         },
         'ConvertSpeend_Get' : {
