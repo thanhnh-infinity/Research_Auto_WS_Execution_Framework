@@ -25,7 +25,14 @@ expectedOutput = ['resource_SetOfScientificNames']
 json_result = ws_execution_engine.execute_single_operation("phylotastic_GetScientificNamesText_GNRD_POST",inputParams,expectedOutput)
 '''
 # Running GET resolve names
+#inputParams = []
+#inputParams.append("CCrabronidae|Ophiocordyceps|Megalyridae|Formica%20polyctena|Tetramorium caespitum|Pseudomyrmex|Carebara diversa|Formicinae")
+#expectedOutput = ['resource_SetOfResolvedName']
+#json_result = ws_execution_engine.execute_single_operation("phylotastic_ResolveNames_OToL_GET",inputParams,expectedOutput)
+
+# Running POST scaling tree
 inputParams = []
-inputParams.append("CCrabronidae|Ophiocordyceps|Megalyridae|Formica%20polyctena|Tetramorium caespitum|Pseudomyrmex|Carebara diversa|Formicinae")
-expectedOutput = ['resource_SetOfResolvedName']
-json_result = ws_execution_engine.execute_single_operation("phylotastic_ResolveNames_OToL_GET",inputParams,expectedOutput)
+inputParams.append('{"newick":"(Aulacopone_relicta,(((Myrmecia_gulosa,(Aneuretus_simoni,Dolichoderus_mariae)),((Ectatomma_ruidum,Huberia_brounii),Formica_rufa)),Apomyrma_stygia),Martialis_heureka)Formicidae;"}')
+expectedOutput = ['resource_speciesTree']
+json_result = ws_execution_engine.execute_single_operation("phylotastic_ScaleTree_OT_POST",inputParams,expectedOutput)
+

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://phylo.cs.nmsu.edu:5009/phylotastic_ws" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://phylo.cs.nmsu.edu:5009/phylotastic_ws">
+    <!-- TYPES -->
+    <wsdl:types>
+        <s:schema elementFormDefault="qualified" targetNamespace="http://phylo.cs.nmsu.edu:5009/phylotastic_ws">
+            <!-- Request data structure -->
+            <s:element name="Phylo_OT_Scale_POST_Request">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="1" maxOccurs="1" name="newick" type="s:string"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+
+            <!-- Response data structure -->
+            <s:element name="Phylo_OT_Scale_POST_Response">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="1" maxOccurs="1" name="status_code" type="s:integer"/>
+                        <s:element minOccurs="1" maxOccurs="1" name="message" type="s:string"/>
+                        <s:element minOccurs="1" maxOccurs="1" name="scaled_tree" type="s:string"/>
+                        <s:element minOccurs="1" maxOccurs="1" name="input_tree" type="s:string"/>
+                        <s:element minOccurs="1" maxOccurs="1" name="meta_data" type="tns:res_meta_data"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            
+            <!-- Data Structure for complex object in Response -->
+            <s:complexType name="res_meta_data">
+                <s:sequence>
+                    <s:element name="execution_time" type="s:double"/>
+                    <s:element name="creation_time" type="s:string"/>
+                    <s:element name="source_urls" type="s:string"/>
+                </s:sequence>
+            </s:complexType>
+            
+            <s:element name="double" type="s:double"/>
+        </s:schema>
+    </wsdl:types>
+    
+    <!-- MESSAGE -->
+    <wsdl:message name="phylotastic_ScaleTree_OT_POST_HttpPostIn">
+       <wsdl:part name="newick" type="s:string"/>
+    </wsdl:message>
+    <wsdl:message name="phylotastic_ScaleTree_OT_POST_HttpPostOut">
+        <wsdl:part name="status_code" type="s:integer"/>
+        <wsdl:part name="message" type="s:string"/>
+        <wsdl:part name="scaled_tree" type="s:string"/>
+        <wsdl:part name="meta_data" type="tns:res_meta_data"/>
+        <wsdl:part name="input_tree" type="s:string"/>
+    </wsdl:message>
+
+    
+    <!-- PORT TYPE -->
+    <wsdl:portType name="phylotastic_ScaleTree_OT_HttpPost">
+        <wsdl:operation name="phylotastic_ScaleTree_OT_POST">
+            <wsdl:input message="tns:phylotastic_ScaleTree_OT_POST_HttpPostIn"/>
+            <wsdl:output message="tns:phylotastic_ScaleTree_OT_POST_HttpPostOut"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    
+    <!-- BINDING -->
+    <wsdl:binding name="phylotastic_ScaleTree_OT_HttpPost" type="tns:phylotastic_ScaleTree_OT_HttpPost">
+        <http:binding verb="POST"/>
+        <wsdl:operation name="phylotastic_ScaleTree_OT_POST">
+            <http:operation location="/sc/ot/scale"/>
+            <wsdl:input>
+                <http:urlEncoded/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="application/json"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+
+    
+    <!-- SERVICE -->
+    <wsdl:service name="phylotastic_Scale_OT_Tree">
+        <wsdl:port name="phylotastic_ScaleTree_OT_HttpPost" binding="tns:phylotastic_ScaleTree_OT_HttpPost">
+            <http:address location="http://phylo.cs.nmsu.edu:5009/phylotastic_ws"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

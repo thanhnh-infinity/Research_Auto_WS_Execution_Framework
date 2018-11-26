@@ -7,6 +7,7 @@ try:
     NameExtraction_URL_Client = Client("./WSDL/Phylotastic_Name_Extraction_URL.wsdl")
     NameExtraction_TEXT_Client = Client("./WSDL/Phylotastic_Name_Extraction_TEXT.wsdl")
     NameResolution_Client = Client("./WSDL/Phylotastic_Name_Resolution_OToL.wsdl")
+    TreeScaling_Client = Client("./WSDL/Phylotastic_Tree_Scaling.wsdl")
 
     # 1. FOR UBUNTU : Registration part
     #TreeGeneration_Client = Client("/opt/app/execution/WSDL/Phylotastic_Tree_Generation.wsdl")
@@ -20,7 +21,8 @@ try:
     Name_Extraction_Operation_GNRD_URL_GET = NameExtraction_URL_Client.bind("phylotastic_GetScientificNames_GNRD","phylotastic_GetScientificNames_GNRD_GET_HttpGet")
     Name_Extraction_Operation_GNRD_TEXT_POST = NameExtraction_TEXT_Client.bind("phylotastic_GetScientificNamesText_GNRD","phylotastic_GetScientificNamesText_GNRD_HttpPOST")
     Name_Resolution_Operation_OToL_GET = NameResolution_Client.bind("phylotastic_ResolveNames_OToL","phylotastic_ResolveNames_OToL_GET_HttpGet")
-		
+    Tree_Scaling_Operation_OToL_POST = TreeScaling_Client.bind("phylotastic_Scale_OT_Tree","phylotastic_ScaleTree_OT_HttpPost")		
+
 
     # 3. Mapping part
     SERVICE_DIC_ONTO_WSDL = {
@@ -73,6 +75,16 @@ try:
             'outputs' : {
                 'resouce_HTTPCode' : 'status_code',
                 'resource_SetOfResolvedName' : 'resolvedNames'
+            }
+        },
+        'phylotastic_ScaleTree_OT_POST' : {
+            'execution.call' : Tree_Scaling_Operation_OToL_POST['phylotastic_ScaleTree_OT_POST'],
+            'inputs' : {
+                'resource_speciesTree' : 'newick'
+            },
+            'outputs' : {
+                'resouce_HTTPCode' : 'status_code',
+                'resource_speciesTree' : 'scaled_tree'
             }
         },
         'ConvertSpeend_Get' : {
