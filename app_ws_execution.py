@@ -1,6 +1,7 @@
 import ws_execution_engine
 from pprint import pprint
 import dictionary
+import json
 
 EX_SERVICE_DIC_ONTO_WSDL = dictionary.SERVICE_DIC_ONTO_WSDL
 
@@ -32,7 +33,7 @@ json_result = ws_execution_engine.execute_single_operation("phylotastic_GetScien
 
 # Running POST scaling tree
 inputParams = []
-inputParams.append('{"newick":"(Aulacopone_relicta,(((Myrmecia_gulosa,(Aneuretus_simoni,Dolichoderus_mariae)),((Ectatomma_ruidum,Huberia_brounii),Formica_rufa)),Apomyrma_stygia),Martialis_heureka)Formicidae;"}')
+inputParams.append(json.dumps({'newick':'(Aulacopone_relicta,(((Myrmecia_gulosa,(Aneuretus_simoni,Dolichoderus_mariae)),((Ectatomma_ruidum,Huberia_brounii),Formica_rufa)),Apomyrma_stygia),Martialis_heureka)Formicidae;'}))
 expectedOutput = ['resource_speciesTree']
 json_result = ws_execution_engine.execute_single_operation("phylotastic_ScaleTree_OT_POST",inputParams,expectedOutput)
 
