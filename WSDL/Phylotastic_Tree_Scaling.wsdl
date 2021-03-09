@@ -8,6 +8,7 @@
                 <s:complexType>
                     <s:sequence>
                         <s:element minOccurs="1" maxOccurs="1" name="newick" type="s:string"/>
+                        <s:element minOccurs="1" maxOccurs="1" name="method" type="s:string"/>
                     </s:sequence>
                 </s:complexType>
             </s:element>
@@ -41,8 +42,10 @@
     <!-- MESSAGE -->
     <wsdl:message name="phylotastic_ScaleTree_OT_POST_HttpPostIn">
        <wsdl:part name="newick" type="s:string"/>
+       <wsdl:part name="method" type="s:string"/>
     </wsdl:message>
     <wsdl:message name="phylotastic_ScaleTree_OT_POST_HttpPostOut">
+        <wsdl:part name="method_used" type="s:string"/>
         <wsdl:part name="status_code" type="s:integer"/>
         <wsdl:part name="message" type="s:string"/>
         <wsdl:part name="scaled_tree" type="s:string"/>
@@ -63,7 +66,7 @@
     <wsdl:binding name="phylotastic_ScaleTree_OT_HttpPost" type="tns:phylotastic_ScaleTree_OT_HttpPost">
         <http:binding verb="POST"/>
         <wsdl:operation name="phylotastic_ScaleTree_OT_POST">
-            <http:operation location="/sc/ot/scale"/>
+            <http:operation location="/sc/scale"/>
             <wsdl:input>
                 <http:urlEncoded/>
             </wsdl:input>
@@ -77,7 +80,7 @@
     <!-- SERVICE -->
     <wsdl:service name="phylotastic_Scale_OT_Tree">
         <wsdl:port name="phylotastic_ScaleTree_OT_HttpPost" binding="tns:phylotastic_ScaleTree_OT_HttpPost">
-            <http:address location="http://phylo.cs.nmsu.edu:5009/phylotastic_ws"/>
+            <http:address location="https://phylo.cs.nmsu.edu/phylotastic_ws"/>
         </wsdl:port>
     </wsdl:service>
 </wsdl:definitions>

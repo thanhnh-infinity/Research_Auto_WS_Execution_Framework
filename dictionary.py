@@ -80,7 +80,8 @@ try:
         'phylotastic_ScaleTree_OT_POST' : {
             'execution.call' : Tree_Scaling_Operation_OToL_POST['phylotastic_ScaleTree_OT_POST'],
             'inputs' : {
-                'resource_speciesTree' : 'newick'
+                'resource_speciesTree' : 'newick',
+                'method' : 'method'
             },
             'outputs' : {
                 'resouce_HTTPCode' : 'status_code',
